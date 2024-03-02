@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema({
   tel: {
     type: String,
     required: [true, "Please add your phone number"],
-    unique: [true, "This phone number has been used"],
     match: [
       /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/,
       "Please add a valid phone number",
