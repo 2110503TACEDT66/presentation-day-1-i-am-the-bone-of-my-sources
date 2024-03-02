@@ -9,9 +9,9 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
 
-// const campgrounds = require('./routes/campgrounds');
+const campgrounds = require('./routes/campgrounds');
 const auth = require('./routes/auth');
-// const bookings = require('./routes/bookings');
+const bookings = require('./routes/bookings');
 
 //Load env vars
 dotenv.config({path:'./config/config.env'});
@@ -49,9 +49,9 @@ app.use(hpp());
 app.use(cors());
 
 //Mount router
-// app.use('/api/v1/campgrounds', campgrounds);
+app.use('/api/v1/campgrounds', campgrounds);
 app.use('/api/v1/auth', auth);
-// app.use('/api/v1/bookings', bookings);
+app.use('/api/v1/bookings', bookings);
 
 
 const PORT = process.env.PORT || 5000;
