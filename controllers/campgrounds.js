@@ -72,7 +72,7 @@ exports.getCampgrounds= async (req,res,next) => {
 //GET /api/v1/campgrounds/:id
 exports.getCampground= async (req,res,next) => {
     try {
-        const campground = await Campground.findById(req.params.id);
+        const campground = await Campground.findById(req.params.id).populate('bookings');
         if (!campground) {
             res.status(400).json({success:false});
         }
