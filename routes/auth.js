@@ -11,4 +11,3 @@ router.get("/me", protect, getMe);
 router.get("/logout", logout);
 
 module.exports = router;
-
