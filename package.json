@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Hello world\"",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,6 @@
   },
   "homepage": "https://github.com/2110503TACEDT66/presentation-day-1-i-am-the-bone-of-my-sources#readme",
   "dependencies": {
-    "nodemon": "^3.1.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -43,6 +43,6 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mysql": "^2.15.25",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.1.0"
   }
 }
