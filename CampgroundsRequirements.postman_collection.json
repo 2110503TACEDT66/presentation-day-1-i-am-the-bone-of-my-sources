@@ -204,7 +204,8 @@
 													"\r",
 													"pm.test(\"There are campgrounds\", () => {\r",
 													"    pm.expect(response.data.count()).to.be.above(0);\r",
-													"});"
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -247,20 +248,20 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{URL}}/api/v1/campground/:campground_ID",
+											"raw": "{{URL}}/api/v1/campgrounds/:campground_ID",
 											"host": [
 												"{{URL}}"
 											],
 											"path": [
 												"api",
 												"v1",
-												"campground",
+												"campgrounds",
 												":campground_ID"
 											],
 											"variable": [
 												{
 													"key": "campground_ID",
-													"value": ""
+													"value": "{{campground_ID}}"
 												}
 											]
 										}
@@ -268,17 +269,18 @@
 									"response": []
 								},
 								{
-									"name": "Add Booking 1 (using campground URL)",
+									"name": "Add Booking 1",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
 													"pm.environment.set(\"booking 1\", pm.response.json().data._id)\r",
-													"\r",
-													"pm.test(\"Status code is 201\", function () {\r",
-													"    pm.response.to.have.status(201);\r",
-													"});"
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -306,7 +308,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -329,7 +331,7 @@
 											"variable": [
 												{
 													"key": "campground_ID",
-													"value": ""
+													"value": "{{campground_ID}}"
 												}
 											]
 										}
@@ -337,17 +339,17 @@
 									"response": []
 								},
 								{
-									"name": "Add Booking 2 (using booking URL)",
+									"name": "Add Booking 2",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"booking 2\", pm.response.json().data._id)\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
 													"\r",
-													"pm.test(\"Status code is 201\", function () {\r",
-													"    pm.response.to.have.status(201);\r",
-													"});"
+													"pm.environment.set(\"booking 2\", pm.response.json().data._id)"
 												],
 												"type": "text/javascript"
 											}
@@ -375,67 +377,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"campground\": \"{{campground_ID}}\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{URL}}/api/v1/bookings",
-											"host": [
-												"{{URL}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"bookings"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add Booking 3 (using campground URL) Copy",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.environment.set(\"booking 3\", pm.response.json().data._id)\r",
-													"\r",
-													"pm.test(\"Status code is 201\", function () {\r",
-													"    pm.response.to.have.status(201);\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{TOKEN}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"description": "JSON Type",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -458,7 +400,7 @@
 											"variable": [
 												{
 													"key": "campground_ID",
-													"value": ""
+													"value": "{{campground_ID}}"
 												}
 											]
 										}
@@ -466,7 +408,76 @@
 									"response": []
 								},
 								{
-									"name": "Add Booking 4 INVALID (using booking URL)",
+									"name": "Add Booking 3",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"booking 3\", pm.response.json().data._id)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"description": "JSON Type",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/api/v1/campgrounds/:campground_ID/bookings/",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"campgrounds",
+												":campground_ID",
+												"bookings",
+												""
+											],
+											"variable": [
+												{
+													"key": "campground_ID",
+													"value": "{{campground_ID}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Booking 4 INVALID",
 									"event": [
 										{
 											"listen": "test",
@@ -502,7 +513,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"campground\": \"{{campground_ID}}\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\",\r\n    \"campground\": \"{{campground_ID}}\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -510,14 +521,23 @@
 											}
 										},
 										"url": {
-											"raw": "{{URL}}/api/v1/bookings",
+											"raw": "{{URL}}/api/v1/campgrounds/:campground_ID/bookings/",
 											"host": [
 												"{{URL}}"
 											],
 											"path": [
 												"api",
 												"v1",
-												"bookings"
+												"campgrounds",
+												":campground_ID",
+												"bookings",
+												""
+											],
+											"variable": [
+												{
+													"key": "campground_ID",
+													"value": "{{campground_ID}}"
+												}
 											]
 										}
 									},
@@ -617,7 +637,7 @@
 											"variable": [
 												{
 													"key": "booking_ID",
-													"value": ""
+													"value": "{{booking 1}}"
 												}
 											]
 										},
@@ -692,6 +712,19 @@
 								},
 								{
 									"name": "Delete Booking 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -719,7 +752,7 @@
 											"variable": [
 												{
 													"key": "booking_ID",
-													"value": ""
+													"value": "{{booking 1}}"
 												}
 											]
 										}
@@ -1033,6 +1066,19 @@
 						},
 						{
 							"name": "Update Booking 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1085,6 +1131,19 @@
 						},
 						{
 							"name": "Delete Booking 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1126,8 +1185,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
+											"pm.test(\"Status code is 404 (NOT FOUND)\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1168,6 +1227,55 @@
 								"description": "Fetch all hospitals from database."
 							},
 							"response": []
+						},
+						{
+							"name": "Delete Booking 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/api/v1/bookings/:booking_ID",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"bookings",
+										":booking_ID"
+									],
+									"variable": [
+										{
+											"key": "booking_ID",
+											"value": "{{booking 3}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -1198,11 +1306,6 @@
 		{
 			"key": "URL",
 			"value": "http://localhost:5000",
-			"type": "string"
-		},
-		{
-			"key": "TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTJiNzNhMDA5YzVjNGFlNTJkY2FiZiIsImlhdCI6MTcwOTM3NTcyMywiZXhwIjoxNzExOTY3NzIzfQ.msFm-TfxLo4TwqoLa4FVHrXIq8-kxNKWKH2S1Z_-7pQ",
 			"type": "string"
 		}
 	]
