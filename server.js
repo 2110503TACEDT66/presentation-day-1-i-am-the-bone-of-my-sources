@@ -1,3 +1,14 @@
+const express = require('express');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const {xss} = require('express-xss-sanitizer');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
+
 const campgrounds = require('./routes/campgrounds');
 const auth = require('./routes/auth');
 const bookings = require('./routes/bookings');
@@ -27,7 +38,7 @@ app.use(xss());
 //Rate Limiting
 const limiter = rateLimit({
     windowsMs: 10*60*1000,
-    max: 500
+    max: 100
 });
 app.use(limiter);
 
