@@ -204,10 +204,7 @@
 													"\r",
 													"pm.test(\"There are campgrounds\", () => {\r",
 													"    pm.expect(response.data.count()).to.be.above(0);\r",
-													"});\r",
-													"\r",
-													"postman.setNextRequest(\"Create New Hospital\");\r",
-													""
+													"});"
 												],
 												"type": "text/javascript"
 											}
