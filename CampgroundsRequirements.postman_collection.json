@@ -311,7 +311,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\"}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -381,7 +381,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\"}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -451,7 +451,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\"}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -518,7 +518,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"time\": \"00:00\",\r\n    \"campground\": \"{{campground_ID}}\"\r\n}",
+											"raw": "{\r\n    \"bookDate\": \"{{$randomDateFuture}}\",\r\n    \"campground\": \"{{campground_ID}}\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"

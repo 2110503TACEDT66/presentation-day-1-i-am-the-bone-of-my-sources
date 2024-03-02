@@ -15,10 +15,6 @@ const BookingSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'Please add a date'],
     },
-    time: {
-        type: String,
-        required: [true, 'Please add a time'],
-    },
     createdAt: {
         type: Date,
         default: Date.now,
