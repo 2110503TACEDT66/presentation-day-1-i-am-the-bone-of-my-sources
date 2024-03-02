@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const connectDB = require('./configs/db');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -9,9 +9,9 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
 
-const campgrounds = require('./routes/campgrounds');
+// const campgrounds = require('./routes/campgrounds');
 const auth = require('./routes/auth');
-const bookings = require('./routes/bookings');
+// const bookings = require('./routes/bookings');
 
 //Load env vars
 dotenv.config({path:'./config/config.env'});
@@ -38,7 +38,7 @@ app.use(xss());
 //Rate Limiting
 const limiter = rateLimit({
     windowsMs: 10*60*1000,
-    max: 100
+    max: 500
 });
 app.use(limiter);
 
@@ -49,9 +49,9 @@ app.use(hpp());
 app.use(cors());
 
 //Mount router
-app.use('/api/v1/campgrounds', campgrounds);
+// app.use('/api/v1/campgrounds', campgrounds);
 app.use('/api/v1/auth', auth);
-app.use('/api/v1/bookings', bookings);
+// app.use('/api/v1/bookings', bookings);
 
 
 const PORT = process.env.PORT || 5000;
