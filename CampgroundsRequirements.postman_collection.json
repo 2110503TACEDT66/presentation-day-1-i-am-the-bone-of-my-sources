@@ -1199,6 +1199,11 @@
 			"key": "URL",
 			"value": "http://localhost:5000",
 			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTJiNzNhMDA5YzVjNGFlNTJkY2FiZiIsImlhdCI6MTcwOTM3NTcyMywiZXhwIjoxNzExOTY3NzIzfQ.msFm-TfxLo4TwqoLa4FVHrXIq8-kxNKWKH2S1Z_-7pQ",
+			"type": "string"
 		}
 	]
 }
