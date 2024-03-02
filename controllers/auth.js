@@ -5,7 +5,7 @@ const User = require("../models/User");
 //@access   Public
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, tel, email,  password, role } = req.body;
 
     // Create User
     const user = await User.create({
@@ -18,8 +18,8 @@ exports.register = async (req, res, next) => {
 
     sendTokenResponse(user, 200, res);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ success: false });
-    console.log(err.stack);
   }
 };
 
@@ -95,8 +95,8 @@ exports.getMe = async (req, res, next) => {
 //@route    GET /api/v1/auth/logout
 //@access   Private
 exports.logout = async (req, res, next) => {
-  res.cookie("token", "none", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.cookie("token", "", {
+    expires: new Date(0),
     httpOnly: true,
   });
 
