@@ -26,17 +26,16 @@ const CampgroundSchema = new mongoose.Schema({
             required: true,
             validate: {
                 validator: (coordinates) => {
-                    const [latitude, longitude] = coordinates;
+                    const [longitude, latitude] = coordinates;
                     return (
-                        validLatitudes[0] <= latitude &&   // Check if latitude is within valid range
-                        latitude <= validLatitudes[1] &&
                         validLongitudes[0] <= longitude &&  // Check if longitude is within valid range
-                        longitude <= validLongitudes[1] 
+                        longitude <= validLongitudes[1] &&
+                        validLatitudes[0] <= latitude &&   // Check if latitude is within valid range
+                        latitude <= validLatitudes[1]
                     );
                 },
-                message: props => `${props.value} is not a valid set of coordinates. Latitude must be between -90 and 90, and Longitude must be between -180 and 180`
-            },
-            index: '2dsphere' // Create a 2dsphere index for efficient geospatial queries
+                message: props => `${props.value} is not a valid set of coordinates. Longitude must be between -180 and 180, and Latitude must be between -90 and 90`
+            }
         }
     },
     tel: {
