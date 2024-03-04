@@ -85,10 +85,14 @@ exports.getCampground= async (req,res,next) => {
 //Create a campground
 //POST /api/v1/campgrounds
 exports.createCampground= async (req,res,next) => {
-    const campground = await Campground.create(req.body);
-    res.status(201).json({
-        success: true, 
-        data: campground});
+    try {
+        const campground = await Campground.create(req.body);
+        res.status(201).json({
+            success: true, 
+            data: campground});
+    } catch (err) {
+        res.status(400).json({success: false, message: err.message});
+    }
 };
 
 //Update a campground

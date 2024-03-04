@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+const validLatitudes = [-90, 90];  // Valid latitude range
+const validLongitudes = [-180, 180]; // Valid longitude range
+
 const CampgroundSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,6 +14,30 @@ const CampgroundSchema = new mongoose.Schema({
     address: {
         type: String,
         required: [true, 'Please add an address']
+    },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true // Ensures the type field is always present
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+            validate: {
+                validator: (coordinates) => {
+                    const [latitude, longitude] = coordinates;
+                    return (
+                        validLatitudes[0] <= latitude &&   // Check if latitude is within valid range
+                        latitude <= validLatitudes[1] &&
+                        validLongitudes[0] <= longitude &&  // Check if longitude is within valid range
+                        longitude <= validLongitudes[1] 
+                    );
+                },
+                message: props => `${props.value} is not a valid set of coordinates. Latitude must be between -90 and 90, and Longitude must be between -180 and 180`
+            },
+            index: '2dsphere' // Create a 2dsphere index for efficient geospatial queries
+        }
     },
     tel: {
         type: String,
