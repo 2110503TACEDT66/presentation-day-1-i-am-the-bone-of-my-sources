@@ -6,18 +6,48 @@ title "Manage Booking (GET ALL)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:campgrounds" as routerCampgrounds
 participant "<<router>>\n:bookings" as routerBookings
 participant "<<controllers>>\n:bookings" as controllersBookings
+participant "<<model>>\n:Campground" as modelCampground
 participant "<<model>>\n:Booking" as modelBooking
 database "<<MongoDB>>\n:bookings" as BookingsDatabase
+database "<<MongoDB>>\n:campgrounds" as CampgroundsDatabase
 
-client->server ++:req.get('/bookings')
-server->routerBookings ++:app.use('/bookings',bookings)
+client->server ++:req.get('/bookings') || req.get('/campgrounds/:campgroundId/bookings')
+alt req.get('/bookings')
+server->routerBookings ++:app.use('/bookings', bookingRouter);
+else 
+server->routerCampgrounds ++:app.use('/campgrounds', campgrounds)
+routerCampgrounds->routerBookings ++:router.use('/:campgroundId/bookings', bookingRouter);
+end
 routerBookings -> controllersBookings ++:getBookings()
-controllersBookings->modelBooking ++:find()
-modelBooking ->BookingsDatabase ++: bookingSchema
-BookingsDatabase --> modelBooking --: bookings
-controllersBookings <-- modelBooking --:bookings
-controllersBookings->client --:200 {success: true, count: bookings.length, data: bookings}
+
+alt User is admin
+    alt Provide campgroundId
+        controllersBookings->modelBooking ++:find({ campground: req.params.campgroundId })
+    else Provide no campgroundId
+        controllersBookings->modelBooking ++:find()
+    end
+else User is not admin
+  controllersBookings->modelBooking ++:find({user: req.user.id})
+end
+
+modelBooking ->BookingsDatabase ++: findSchema
+BookingsDatabase --> modelBooking --: bookingsList
+controllersBookings <-- modelBooking --: bookingsList
+deactivate modelBooking
+deactivate modelBooking
+
+
+controllersBookings->modelCampground ++:populate(path: 'campground', select: 'name address tel')
+modelCampground ->CampgroundsDatabase ++: findSchema
+CampgroundsDatabase --> modelCampground --: populatedCampgrounds
+controllersBookings <-- modelCampground --: populatedCampgrounds
+alt Found bookings
+    controllersBookings->client :200 {success: true, count: bookingsList.length, data: bookings}
+else There must be some error
+    controllersBookings->client --:500 {success: false, message: 'Cannot find Booking'}
+end
 
 @enduml
