@@ -17,13 +17,14 @@ package "CampgroundBooking"{
     class "<<Representation>>\nCampground" as RepresentationCampground {
         -name
         -address
+        -location
         -tel
     }
 
     ' Booking
     class "<<Resource>>\nBookings" as ResourceBookings{
             <<GET>> +getBookings(): Booking
-            <<POST>> +createBooking(): Booking
+            <<POST>> +addBooking(): Booking
     }
     class "<<Resource>>\nBooking" as ResourceBooking {
             <<GET>> +getBooking(): Booking
@@ -31,7 +32,6 @@ package "CampgroundBooking"{
             <<DELETE>> +deleteBooking(): void
     }
     class "<<Representation>>\nBooking" as RepresentationBooking {
-            -name
             -user
             -campground
             -bookDate
