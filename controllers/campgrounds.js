@@ -129,6 +129,7 @@ exports.deleteCampground= async (req,res,next) => {
         res.status(400).json({success: false});
     }
 };
+
 // Get campgrounds location
 // GET /api/v1/campground/locations
 exports.getCampgroundsLocation = async (req,res,next) => {
@@ -136,6 +137,41 @@ exports.getCampgroundsLocation = async (req,res,next) => {
         const campgrounds = await Campground.find().select('location name');
         res.status(200).json({success: true, data: campgrounds});
     } catch (err) {
+        res.status(400).json({success: false});
+    }
+};
+
+// Get nearest campground
+// GET /api/v1/campground/nearest
+exports.getNearestCampground = async (req,res,next) => {
+    try {
+        const userLat = req.query.latitude;
+        const userLon = req.query.longitude;
+        const campgrounds = await Campground.find();
+        //console.log(userLat);
+        //console.log(userLon);
+        // Initialize variables for the closest campground and its distance
+        let closestCampground = null;
+        let minDistance = Infinity;
+    
+        // Iterate through each campground
+        campgrounds.forEach(campground => {
+            const latitude= campground.location.coordinates[1];
+            const longitude = campground.location.coordinates[0];
+            //console.log(latitude);
+            //console.log(longitude);
+            // Calculate the distance using the Hypot formula
+            const distance = Math.hypot(userLat-latitude, userLon-longitude);
+    
+            // Update the closest campground if the current one is closer
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestCampground = campground;
+            }
+        });
+    
+        res.status(200).json({success: true, data: closestCampground});
+    } catch (error) {
         res.status(400).json({success: false});
     }
 }
