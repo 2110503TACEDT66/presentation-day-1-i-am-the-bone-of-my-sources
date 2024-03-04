@@ -18,10 +18,18 @@ controllersBookings->modelBooking ++:findById(req.params.id)
 modelBooking ->BookingsDatabase ++: bookingSchema
 BookingsDatabase --> modelBooking --: booking
 controllersBookings <-- modelBooking --:booking
-controllersBookings->modelBooking ++:findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true,})
-modelBooking ->BookingsDatabase ++: bookingSchema
-BookingsDatabase --> modelBooking --: booking
-controllersBookings <-- modelBooking --:booking
-controllersBookings->client --:response
+alt booking existed
+    alt user is booking's owner || user is admin
+        controllersBookings->modelBooking ++:findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true,})
+        modelBooking ->BookingsDatabase ++: bookingSchema
+        BookingsDatabase --> modelBooking --: booking
+        controllersBookings <-- modelBooking --:booking
+        controllersBookings->client --:200 {success: true, data: booking}
+    else user is not booking's woner && user is not admin
+        controllersBookings->client --:401 {success: false, message: `User ${req.user.id} is not authorized to update this booking`}
+    end
+else booking not existed
+    controllersBookings->client --:404 {success: false, message: `No booking with the id of ${req.params.id}`}
+end
 
 @enduml

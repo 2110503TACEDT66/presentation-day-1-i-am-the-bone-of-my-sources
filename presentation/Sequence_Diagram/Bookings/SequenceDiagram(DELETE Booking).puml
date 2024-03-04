@@ -18,6 +18,14 @@ controllersBookings->modelBooking ++:findById(req.params.id)
 modelBooking ->BookingsDatabase ++: bookingSchema
 BookingsDatabase --> modelBooking --: booking
 controllersBookings <-- modelBooking --:booking
-controllersBookings->client --:response
+alt booking existed
+    alt user is booking's owner
+        controllersBookings->client --:200 {success: true, data: {}}
+    else user is not booking's owner
+        controllersBookings->client --:401 {success: false, message: `User ${req.user.id} is not authorized to delete this booking`}
+    end
+else booking not existed
+    controllersBookings->client --:404 {success: false, message: `No booking with the id of ${req.params.id}`}
+end
 
 @enduml

@@ -18,6 +18,10 @@ controllersBookings->modelBooking ++:findById(req.params.id)
 modelBooking ->BookingsDatabase ++: bookingSchema
 BookingsDatabase --> modelBooking --: booking
 controllersBookings <-- modelBooking --:booking
-controllersBookings->client --:response
+alt booking existed
+    controllersBookings->client --:200 {success: true, data: booking}
+else booking not existed
+    controllersBookings->client --:404 {success: false, message: `No booking with the id of ${req.params.id}`}
+end
 
 @enduml

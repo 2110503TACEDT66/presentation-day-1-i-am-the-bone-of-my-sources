@@ -18,6 +18,6 @@ controllersBookings->modelBooking ++:find()
 modelBooking ->BookingsDatabase ++: bookingSchema
 BookingsDatabase --> modelBooking --: bookings
 controllersBookings <-- modelBooking --:bookings
-controllersBookings->client --:response
+controllersBookings->client --:200 {success: true, count: bookings.length, data: bookings}
 
 @enduml

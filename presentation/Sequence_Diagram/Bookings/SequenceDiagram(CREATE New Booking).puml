@@ -19,13 +19,20 @@ server->routerCampgrounds ++:app.use('/campgrounds',campgrounds)
 routerCampgrounds->routerBookings ++:router.use('/:campgroundId/bookings', bookingRouter);
 routerBookings -> controllersBookings ++:addBooking()
 controllersBookings->modelCampground ++:findById(req.params.id)
-modelCampground ->CampgroundsDatabase ++: bookingSchema
+modelCampground ->CampgroundsDatabase ++: campgroundSchema
 CampgroundsDatabase --> modelCampground --: campground
 controllersBookings <-- modelCampground --:campground
-controllersBookings->modelBooking ++:create(req.body)
-modelBooking ->BookingsDatabase ++: bookingSchema
-BookingsDatabase --> modelBooking --: booking
-controllersBookings <-- modelBooking --:booking
-controllersBookings->client --:response
-
+alt Campground existed
+    controllersBookings->modelBooking ++:create(req.body)
+    modelBooking ->BookingsDatabase ++: bookingSchema
+    BookingsDatabase --> modelBooking --: existedBooking
+    controllersBookings <-- modelBooking --: existedBooking
+    alt existedBooking.length >= 3 && req.user.role !== 'admin'
+        controllersBookings->client --:200 {success: true, data: booking}
+    else existedBooking.length < 3 || req.user.role === 'admin'
+        controllersBookings->client --:400 {success: false, message: `The user with ID ${req.user.id} has already made 3 bookings.`}
+    end
+else Campground not existed
+    controllersBookings->client --:404 {success: false, message: `No campground with the id of ${req.params.campgroundId}`}
+end
 @enduml
