@@ -1,3 +1,29 @@
+var mapopts = {
+    zoomSnap: 0.25,
+};
+
+var map = L.map('map', mapopts).setView([25, 0], 2.5);
+
+var styleMutant = L.gridLayer
+    .googleMutant({
+        styles: [
+            { elementType: 'labels', stylers: [{ visibility: 'off' }] },
+            { featureType: 'water', stylers: [{ color: '#444444' }] },
+            { featureType: 'landscape', stylers: [{ color: '#eeeeee' }] },
+            { featureType: 'road', stylers: [{ visibility: 'off' }] },
+            { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+            { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+            { featureType: 'administrative', stylers: [{ visibility: 'off' }] },
+            {
+                featureType: 'administrative.locality',
+                stylers: [{ visibility: 'off' }],
+            },
+        ],
+        maxZoom: 24,
+        type: 'roadmap',
+    })
+    .addTo(map);
+
 async function loadCamp() {
     const allCampsLocation = await fetch('/api/v1/campgrounds/locations');
 
