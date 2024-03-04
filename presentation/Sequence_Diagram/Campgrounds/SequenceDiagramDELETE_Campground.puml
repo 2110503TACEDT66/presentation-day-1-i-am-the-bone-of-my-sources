@@ -18,6 +18,10 @@ controllersCampgrounds->modelCampground ++:findByIdAndDelete(req.params.id)
 modelCampground ->CampgroundsDatabase ++: campgroundSchema
 CampgroundsDatabase --> modelCampground --: campground
 modelCampground --> controllersCampgrounds --: campground
-controllersCampgrounds -> client --: response
+alt Campground found
+    controllersCampgrounds -> client --: 200 {success: true, data: {}}
+else Campground not found
+    controllersCampgrounds -> client --: 404 {success: false, message: `Campground not found with id of ${req.params.id}`}
+end
 
 @enduml

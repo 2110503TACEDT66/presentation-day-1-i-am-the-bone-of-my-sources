@@ -18,6 +18,10 @@ controllersCampgrounds->modelCampground ++:findByIdAndUpdate(req.params.id, req.
 modelCampground ->CampgroundsDatabase ++: campgroundSchema
 CampgroundsDatabase --> modelCampground --: campground
 controllersCampgrounds <-- modelCampground --:campground
-controllersCampgrounds->client --:response
+alt Campground found
+    controllersCampgrounds->client --:200 {success: true, data: campground}
+else Campground not found
+    controllersCampgrounds->client --:400 {success: false}
+end
 
 @enduml

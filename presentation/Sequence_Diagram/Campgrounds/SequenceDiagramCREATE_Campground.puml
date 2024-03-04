@@ -18,6 +18,6 @@ controllersCampgrounds->modelCampground ++:create(req.body)
 modelCampground ->CampgroundsDatabase ++: campgroundSchema
 CampgroundsDatabase --> modelCampground --: campground
 controllersCampgrounds <-- modelCampground --:campground
-controllersCampgrounds->client --:response
+controllersCampgrounds->client --:201 {success: true, data: campground}
 
 @enduml

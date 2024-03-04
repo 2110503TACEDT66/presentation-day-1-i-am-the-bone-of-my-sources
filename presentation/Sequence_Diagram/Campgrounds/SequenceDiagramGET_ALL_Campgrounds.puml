@@ -18,6 +18,6 @@ controllersCampgrounds->modelCampground ++:find()
 modelCampground ->CampgroundsDatabase ++: campgroundSchema
 CampgroundsDatabase --> modelCampground --: campgrounds
 controllersCampgrounds <-- modelCampground --:campgrounds
-controllersCampgrounds->client --:response
+controllersCampgrounds->client --:200 {success: true, count: campgrounds.length, pagination, data: campgrounds}
 
 @enduml
