@@ -1,0 +1,19 @@
+name,address,tel,__v,location.type,location.coordinates[0],location.coordinates[1]
+"Yosemite National Park Campground","123 Park Road, Yosemite Valley, CA 95389",(555) 555-1234,0,"Point",-119.5432,37.7258
+"Banff National Park Campground, Canada","201 Spray Lakes Rd, Banff, AB T1L 1B1, Canada","+1 403-762-1400",0,"Point",-115.5777,51.1731
+"Milford Sound Piopiotahi Campsite, New Zealand","Milford Sound Piopiotahi, New Zealand","+64 3 249 9000",0,"Point",167.8667,-44.4167
+"Masai Mara National Reserve Campsite, Kenya","Masai Mara National Reserve, Kenya","+254 722 500 772",0,"Point",35.25,-1.4167
+"Glacier National Park Campground, USA","West Glacier Ranger Station, West Glacier, MT 59936, USA","+1 406-888-5600",0,"Point",-114.1667,48.6667
+"Torres del Paine National Park Campsite, Chile","Torres del Paine National Park, Chile","+56 61 229 1000",0,"Point",-72.9833,-51.15
+"Uluru - Kata Tjuta National Park Campground, Australia","Ayers Rock Resort, Ayers Rock, NT 0872, Australia","+61 8 8950 7000",0,"Point",131.0333,-25.3417
+"Lake District National Park Campsite, United Kingdom","Lake District National Park, England, UK","+44 1768 772 500",0,"Point",-3.1667,54.5
+"Vik Camping Ground, Iceland","Vik, Iceland","+354 487 1345",0,"Point",-19.0333,63.4667
+"Abel Tasman National Park Campground, New Zealand","Abel Tasman National Park, New Zealand","+64 3 548 5011",0,"Point",173.1167,-40.8333
+"Sequoia and Kings Canyon National Parks Campground, USA","Grant Grove Village, CA 93643, USA","+1 559-565-3341",0,"Point",-118.7833,37.2167
+"Kruger National Park Restcamp, South Africa","Kruger National Park, South Africa","+27 12 428 9111",0,"Point",31.4667,-25.5
+"Fiordland National Park Milford Sound Hostel and Camping, New Zealand","Milford Sound, New Zealand","+64 3 249 8013",0,"Point",167.8667,-44.4167
+"Yosemite National Park Campground, USA","123 Park Road, Yosemite Valley, CA 95389, USA","+1 209-372-0200",0,"Point",-119.5432,37.7258
+"Zion National Park Campground, USA","Springdale, UT 84767, USA","+1 435-772-3256",0,"Point",-113.0333,37.1833
+"Yellowstone National Park Campground, USA","Yellowstone National Park, WY, USA","+1 307-344-2001",0,"Point",-110.5,44.5
+"Grand Canyon National Park Campground, USA","Grand Canyon, AZ, USA","+1 928-297-2757",0,"Point",-112.1167,36.1
+"Mount Fuji Camping Area, Japan","Fujinomiya, Shizuoka Prefecture, Japan","+81 544-22-2111",0,"Point",138.7667,35.3667

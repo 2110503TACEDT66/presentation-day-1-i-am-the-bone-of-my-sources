@@ -129,3 +129,13 @@ exports.deleteCampground= async (req,res,next) => {
         res.status(400).json({success: false});
     }
 };
+// Get campgrounds location
+// GET /api/v1/campground/locations
+exports.getCampgroundsLocation = async (req,res,next) => {
+    try {
+        const campgrounds = await Campground.find().select('location name');
+        res.status(200).json({success: true, data: campgrounds});
+    } catch (err) {
+        res.status(400).json({success: false});
+    }
+}
