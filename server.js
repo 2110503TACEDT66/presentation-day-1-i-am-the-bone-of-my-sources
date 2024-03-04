@@ -53,6 +53,18 @@ app.use('/api/v1/campgrounds', campgrounds);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/bookings', bookings);
 
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+      scriptSrc: ['*'],
+      connectSrc: ['*'],
+      imgSrc: ['*', 'data:', 'http:', 'https:'],
+    },
+  }));
+
+app.use('/campMap/scripts', express.static(__dirname + '/frontend/scripts')); // Adjust path as needed
+app.get('/campMap', (req, res) => {
+    res.sendFile(__dirname + '/frontend/campMap.html');
+});
 
 const PORT = process.env.PORT || 5000;
 
