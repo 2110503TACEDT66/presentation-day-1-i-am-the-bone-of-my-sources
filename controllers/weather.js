@@ -38,7 +38,7 @@ exports.getWeather = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Unable to obtain weather information from API' });
     }
 
-    return res.status(200).json({ success: true, weatherInfo: apiResponse });
+    return res.status(200).json({ success: true, campground: campground, weatherInfo: apiResponse });
   } catch (err) {
     console.log(err);
     return res.status(400).json({ success: false, message: 'Unable to obtain weather information' });
