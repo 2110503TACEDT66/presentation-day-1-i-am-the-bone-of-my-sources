@@ -15,6 +15,10 @@ const CampgroundSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add an address']
     },
+    picture: {
+        type: String,
+        required: [true, 'Please add a picture']
+    },
     location: {
         type: {
             type: String,
