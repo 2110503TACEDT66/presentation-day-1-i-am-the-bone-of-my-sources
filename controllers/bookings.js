@@ -27,7 +27,7 @@ exports.getBookings = async (req, res, next) => {
     }
     query = query.populate({
         path: 'campground',
-        select: 'name address tel',
+        select: 'name address tel picture',
     });
     try {
         const bookings = await query;
@@ -58,7 +58,7 @@ exports.getBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.id).populate({
             path: 'campground',
-            select: 'name description tel',
+            select: 'name description tel picture',
         });
         if (!booking) {
             return res.status(404).json({
