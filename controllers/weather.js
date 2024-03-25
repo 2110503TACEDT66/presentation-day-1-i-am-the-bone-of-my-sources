@@ -26,6 +26,10 @@ exports.getWeather = async (req, res, next) => {
         return response.json();
         // console.log(response);
       })
+      .catch(err => {
+        console.error(err);
+        return res.status(400).json({ success: false, message: 'Unable to connect to the Weather API' });
+      })
       .then(result => {
         apiResponse = result;
       })
