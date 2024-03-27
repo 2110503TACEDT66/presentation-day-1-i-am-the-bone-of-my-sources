@@ -76,16 +76,12 @@ exports.updateUser = async (req, res, next) => {
         message: "User not found",
       });
     }
-    console.log(req.user);
     user = await User.findByIdAndUpdate(req.user.id, req.body, {
       new: true,
       runValidators: true,
     });
 
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+    sendTokenResponse(user, 200, res);
   } catch (err) {
     console.log(err.stack);
     res.status(400).json({ success: false, message: err.message });
