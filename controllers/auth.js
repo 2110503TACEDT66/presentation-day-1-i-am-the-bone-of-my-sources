@@ -1,3 +1,4 @@
+const { listenerCount } = require("../models/Booking");
 const User = require("../models/User");
 
 //@desc     Register user
@@ -63,6 +64,34 @@ exports.login = async (req, res, next) => {
   }
 };
 
+//@desc     Update user details
+//@route    PUT /api/v1/auth/user
+//@access   Private
+exports.updateUser = async (req, res, next) => {
+  try {
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    console.log(req.user);
+    user = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    console.log(err.stack);
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
 const sendTokenResponse = (user, statusCode, res) => {
   // create token
   const token = user.getSignedJwtToken();
@@ -80,7 +109,15 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token });
+    .json({ 
+      success: true,
+      token,
+      name: user.name,
+      email: user.email,
+      tel: user.tel,
+      picture: user.picture? user.picture : "/img/userImg.jpg",
+      role: user.role,
+    });
 };
 
 //@desc     Get current logged in user
